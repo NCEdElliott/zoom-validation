@@ -28,7 +28,7 @@ app.post('/webhook', (req, res) => {
   const signature = `v0=${hashForVerify}`
 
   // you validating the request came from Zoom https://marketplace.zoom.us/docs/api-reference/webhook-reference#notification-structure
-  // if (req.headers['x-zm-signature'] === signature) {
+  if (req.headers['x-zm-signature'] === signature) {
 
     // Zoom validating you control the webhook endpoint https://marketplace.zoom.us/docs/api-reference/webhook-reference#validate-webhook-endpoint
     if(req.body.event === 'endpoint.url_validation') {
@@ -57,15 +57,15 @@ app.post('/webhook', (req, res) => {
       // business logic here, example make API request to Zoom or 3rd party
 
     }
-  // } else {
+  } else {
 
-  //   response = { message: 'Unauthorized request to Webhook Sample Node.js.', status: 401 }
+    response = { message: 'Unauthorized request to Webhook Sample Node.js.', status: 401 }
 
-  //   console.log(response.message)
+    console.log(response.message)
 
-  //   res.status(response.status)
-  //   res.json(response)
-  // }
+    res.status(response.status)
+    res.json(response)
+  }
 })
 
 app.listen(port, () => console.log(`Webhook Sample Node.js listening on port ${port}!`))
